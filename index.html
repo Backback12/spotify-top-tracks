@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Top Tracks</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Get your Spotify Top 20 or 10 idk i havent decided yet">
+    <meta name="keywords" content="Spotify, API, Top 20">
+    <meta name="author" content="Connor Pagtakhan">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="lib/favicon.png">
+
+    <!-- Preload font -->
+    <!-- <link rel="preload" href="lib/merchant-copy.regular-webfont.woff" as="font" type="font/woff" crossorigin> -->
+    
+    <!-- Import Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.13.6/underscore-min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!-- <script src="config.js"></script> -->
+    <!-- <script src="dist/script.js"></script> -->
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2492891866286091" crossorigin="anonymous"></script>
+    
+    <!-- Import Styles -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <link href="styles.css" rel="preload" as="style">
+    <link href="styles.css" rel="stylesheet">
+    <style>
+        h2, h3, h4 {
+            font-weight: bolder;
+        }
+        .card-body {
+            background-color: #ebebeb;
+        }
+        .login-button:hover {
+            background-color: #4cda7e;
+        }
+    </style>
+    
+</head>
+<body>
+
+<!-- Top Navbar -->
+<nav class="navbar navbar-dark navbar-expand-sm bg-dark nav-fill" style="padding: 8px 16px">
+    <!-- <a class="navbar-brand" style="padding: 8px 16px;" href="javascript:document.location = window.location.href.split('#')[0];">Top Tracks</a> -->
+    <a class="navbar-brand" style="padding: 8px 16px;" href=".">Top Tracks</a>
+
+    <div class="collapse navbar-collapse nav-fill"></div>
+
+    <a class="navbar-item" href="https://www.spotify.com/" target="_blank" style="padding: 8px 16px;">
+        <img src="lib/Spotify_Logo_RGB_Green.png" width="100" height="30" alt="Spotify-Logo">
+    </a>
+</nav>
+
+
+<main class="row-featurette container">
+
+    <div class="container" style="padding: 20px;">
+        <div id='alert' class="alert alert-danger alert-dismissible fade show" style="padding: 20px; display: none;" role="alert">
+            <strong>Error!</strong> Please allow authentication.
+        </div>
+    </div>
+
+
+    <!-- Title Divider -->
+    <div class="container row featurette text-center" style="width: 100vw; height: 60vh;">
+        <!-- <p><div><h1 style="font-size: 60px;"><b>Top Tracks</b></h1></p>
+        <p><button class="btn btn-primary btn-outline-light hide-me" onclick="authorizeUser()" style="padding:8px 60px; background-color: #1db954;">Log in with Spotify</button></p>
+        </div> -->
+        <div class="align-self-center">
+            <h1 style="font-size: 60px; padding: 10px 10px;"><b>Top Tracks</b></h1>
+            <button class="btn btn-outline-light login-button" onclick="authorizeUser()">
+                Log in with Spotify
+            </button>
+        </div>
+    </div>
+
+    <hr class="featurette-dividor"></hr>
+
+    
+    <!-- About Section -->
+    <div class="row featurette" id="about">
+        <div class="text-center">
+            <h2>Get your top tracks</h2>
+        </div>
+        <div style="padding: 0px 10%;">
+            <p>
+                Check out your top Spotify tracks
+            </p>
+            <p>
+                This app uses the Spotify Web API to gather tracks and Javascript to
+                generate the image<br>
+            </p>
+            <p>
+                This website is open source 
+                <a href="https://github.com/Backback12/spotify-top-tracks">here.</a>
+            </p>
+            <p>
+                This takes MASSIVE inspiration from
+                <a href="https://receiptify.herokuapp.com/index.html">Receiptify.</a>
+                I basically copied it for testing and practice. Please go check out the original. 
+            </p><br>
+        </div>
+    </div>
+
+    <hr class="featurette-dividor"></hr>
+
+    <div class="row featurette" id="about">
+        <div style="padding: 0px 10%;">
+            <p><h3>Why does it not look accurate?</h3>
+                uhhh i dunno maybe you just have bad music taste
+                <br>The Spotify Web API does not update in real time, and you won't start to see new trends right away.
+                This app just reads from whatever the Spotify Web API says.
+            </p>
+
+            <br>
+
+            <p><h3>Long Term, Medium Term, Short Term?</h3>
+                These are areas of time the Spotify Web API groups your data in.
+            </p>
+            <div class="card">
+                <div class="card-body">
+                    <!-- <li>Short Term - Approximately last 4 weeks</li>
+                    <li>Medium Term - Approximately last 6 months</li>
+                    <li>Long Term - Several years of data</li> -->
+                    <!-- <dl>
+                        <dt>Short Term</dt>
+                        <dd>Approximately last 4 weeks</dd>
+                        <dt>Medium Term</dt>
+                        <dd>Approximately last 6 months</dd>
+                        <dt>Long Term</dt>
+                        <dd>Several years of data</dd>
+                    </dl> -->
+                    <b>Short Term</b><br>
+                    Approximately last 4 weeks<br>
+                    <b>Medium Term</b><br>
+                    Approximately last 6 months<br>
+                    <b>Long Term</b><br>
+                    Several years of data
+                </div>
+            </div>
+            <i>From the Spotify Web API Documentation</i>
+
+            <br>
+
+            <p><h3>What is Popularity?</h3>
+                The Spotify Web API gives a "popularity" value for every artist and track.
+                <br>From the Spotify Web API documentation, Artist Popularity is:
+            </p>
+            <div class="card">
+                <div class="card-body">
+                    The popularity of the artist. The value will be between 0 and 100, with 
+                    100 being the most popular. The artist’s popularity is calculated from 
+                    the popularity of all the artist’s tracks.
+                </div>
+            </div>
+            <p>
+                <br>From the Spotify Web API documentation, Track Popularity is:
+            </p>
+            <div class="card">
+                <div class="card-body">
+                    The popularity of a track is a value between 0 and 100, with 100 being the most popular. 
+                    The popularity is calculated by algorithm and is based, in the most part, on the total 
+                    number of plays the track has had and how recent those plays are. Generally speaking, 
+                    songs that are being played a lot now will have a higher popularity than songs that were 
+                    played a lot in the past. Duplicate tracks (e.g. the same track from a single and an album) 
+                    are rated independently. Artist and album popularity is derived mathematically from track 
+                    popularity. Note: the popularity value may lag actual popularity by a few days: the value 
+                    is not updated in real time.
+                </div>
+            </div>
+            <p>
+                Note that some tracks have a popularity of 0, which means they are hella underground.
+            </p>
+        </div>
+    </div>
+
+    <hr class="featurette-dividor"></hr>
+    
+
+</main>
+
+
+<footer class="py-3 my-4">
+    <ul class="nav justify-content-center pb-3 mb-3">
+      <li class="nav-item"><a href="." class="nav-link px-2 text-muted">Home</a></li>
+      <li class="nav-item"><a href="about.html" class="nav-link px-2 text-muted">About</a></li>
+      <li class="nav-item"><a href="privacy.html" class="nav-link px-2 text-muted">Privacy Policy</a></li>
+    </ul>
+    <!-- <p class="text-center text-muted">© 2022 Company, Inc</p> -->
+    <p class='text-center text-muted'>Project made by 
+        <a href="https://google.com/" target="_blank">Connor Pagtakhan</a>
+    </p>
+</footer>
+
+<script type="module">
+import { SPOTIFY_CLIENT_ID } from "./config.js";
+import { SPOTIFY_REDIRECT_URI } from "./config.js";
+
+/* 
+ * authorizeUser()
+ * Authorizes user
+ */
+ self.authorizeUser = () => {
+    var scopes = 'user-top-read';
+    var url = 'https://accounts.spotify.com/authorize?client_id=' + SPOTIFY_CLIENT_ID +
+        '&response_type=token' +
+        '&scope=' + encodeURIComponent(scopes) +
+        '&redirect_uri=' + encodeURIComponent(SPOTIFY_REDIRECT_URI) +
+        '&show_dialog=true';
+    document.location = url;
+}
+
+/*
+ * parseArgs()
+ * Reads hashes (#) 
+ * or searches (?) in the url
+ */
+function parseArgs() {
+    if (location.hash.length == 0) {
+        var hash = location.search.replace('?', '');
+    }
+    else {
+        var hash = location.hash.replace('#', '');
+    }
+    var all = hash.split('&');
+    var args = {};
+    _.each(all, function(keyvalue) {
+        var kv = keyvalue.split('=');
+        var key = kv[0];
+        var val = kv[1];
+        args[key] = val;
+    });
+    return args;
+}
+
+$(document).ready(function() {
+    var args = parseArgs();
+    if ('error' in args) {
+        // alert("Error in getting Spotify authorization");
+        document.getElementById('alert').style.display = 'block';
+    }
+    else if ('access_token' in args) {
+        //console.log(window.location.search);
+        window.location = 'tracks.html' + window.location.hash;
+    }
+    else {
+        // user is not authenticated
+    }
+});
+</script>
+</body>
+</html>

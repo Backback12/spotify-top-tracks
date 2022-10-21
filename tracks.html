@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Top Tracks</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Get your Spotify Top 20 or 10 idk i havent decided yet">
+    <meta name="keywords" content="Spotify, API, Top 20">
+    <meta name="author" content="Connor Pagtakhan">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="lib/favicon.png">
+
+    <!-- Preload font -->
+    <link rel="preload" href="lib/merchant-copy.regular-webfont.woff" as="font" type="font/woff" crossorigin="anonymous" as="font">
+    
+    <!-- Import Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.13.6/underscore-min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="dist/script.js" type="module"></script>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2492891866286091" crossorigin="anonymous"></script>
+    
+    <!-- Import Styles -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <!-- <link href="styles.css" rel="preload" as="style">
+    <link href="styles.css" rel="stylesheet"> -->
+    <style>
+        @font-face {
+            font-family: 'Merchant Copy';
+            src: url('lib/merchant-copy.regular-webfont.woff') format('woff');
+        }
+        body {
+            background-color: #fffffa;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        canvas {
+            box-shadow: 4px 4px 20px #808080;
+        }
+        .login-button {
+            padding:16px 40px;
+        }
+    </style>
+    
+</head>
+<body>
+
+<!-- Top Navbar -->
+<nav id="home" class="navbar navbar-dark navbar-expand-sm bg-dark nav-fill" style="padding: 8px 16px">
+    <a class="navbar-brand" style="padding: 8px 16px;" href="..">Top Tracks</a>
+
+    <div class="collapse navbar-collapse nav-fill">
+    </div>
+
+    <a class="navbar-item" href="https://www.spotify.com/" target="_blank" style="padding: 8px 16px;">
+        <img src="lib/Spotify_Logo_RGB_Green.png" width="100" height="30" alt="">
+    </a>
+</nav>
+
+
+<main class="row-featurette container">
+    <!-- Title Divider -->
+    <div class="container row featurette text-center" style="width: 100vw; height: 60vh;">
+        <!-- <p><div><h1 style="font-size: 60px;"><b>Top Tracks</b></h1></p>
+        <p><button class="btn btn-primary btn-outline-light hide-me" onclick="authorizeUser()" style="padding:8px 60px; background-color: #1db954;">Log in with Spotify</button></p>
+        </div> -->
+        <div class="align-self-center">
+            <h1 style="font-size: 60px; padding: 10px 10px;"><b>Top Tracks</b></h1>
+            <button class="btn btn-secondary login-button" onclick="window.location.href='..'">
+                Go Back
+            </button>
+        </div>
+    </div>
+
+    <hr class="featurette-dividor"></hr>
+
+    <div class="text-center" style="padding-bottom: 40px">
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-secondary">Short Term</button>
+            <button type="button" class="btn btn-secondary">Medium Term</button>
+            <button type="button" class="btn btn-secondary">Long Term</button>
+        </div>
+    </div>
+    
+    <!-- Image Display Canvas -->
+    <div class="featurette text-center">
+        <!-- <canvas id="canvas" width="300" height="600"> -->
+        <!-- <canvas id="canvas"> -->
+        
+        <!-- canvas set to be height of paper img 1333 -->
+        <canvas id="canvas" width="300" height="2000">
+            Sorry, your browser does not support JavaScript: Canvas
+        </canvas>
+    </div>
+    
+    <hr class="featurette-dividor"></hr>
+
+    <!-- Footer -->
+    <footer class="text-center" id="contact">
+        <p>Made by <a href="https://google.com/" title="bruh" target="_blank" class="w3-hover-text-green">Connor Pagtakhan</a></p>
+    </footer>
+</main>
+</body>
+</html>
