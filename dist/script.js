@@ -94,6 +94,8 @@ function loadUserData() {
         
         Promise.all(promiseList)
         .then((allData) => {
+            // Split into 'tracks' 'artists'
+            // then into 'short_term' 'medium_term' 'long_term'
             let newData = {};
             for (let i = 0; i < 6; i++) {
                 //let urlSplit = allData[i].href.split(/[/?=]/)
@@ -107,7 +109,46 @@ function loadUserData() {
             }
             newData['user'] = allData[6];
 
-            resolve(newData);
+            // resolve(newData);
+            return newData;
+        })
+        .then((userData) => {
+            // get audio features of each track
+            const getAudioFeatures = true;
+
+            if (!getAudioFeatures) {
+                resolve(userData);
+            }
+            else {
+                const DATA_TERMS = ['short_term', 'medium_term', 'long_term']
+                let promiseList = [];
+                for (let term = 0; term < 3; term++) {
+                    
+                    // Get list of ids separated by comma
+                    let idList = ""
+                    for (let i = 0; i < LIST_LENGTH; i++) {
+                        idList += userData['tracks'][DATA_TERMS[term]]['items'][i]['id'];
+                        if (i < LIST_LENGTH-1) idList += ",";
+                    }
+
+                    // send 3 audio features requests
+                    promiseList.push(getSpotify(`/audio-features?ids=${idList}`))    
+                }
+
+
+                Promise.all(promiseList)
+                .then((returnedData) => {
+                    // all 3 audio features request
+                    for (let term = 0; term < 3; term++) {
+                        for (let i = 0; i < LIST_LENGTH; i++) {
+                            userData['tracks'][DATA_TERMS[term]]['items'][i]['audio_features'] = returnedData[term]['audio_features'][i];
+                        }
+                    }
+                    resolve(userData);
+                })
+
+                // resolve(allData);
+            }
         })
         .catch((err) => {
             reject(err);
